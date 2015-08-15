@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Configuration.
+REPO_NAME="rediscounter"
+
+# Check out the newest version of the code.
+export GIT_WORK_TREE="/var/git/${REPO_NAME}"
+git checkout -f
+
+TAG="$(git log --pretty=format:'%h' -n 1)"
+FULL_COMMIT_TAG="${REPO_NAME}:${TAG}"
+FULL_LATEST_TAG="${REPO_NAME}:latest"
+
+# Build the image with the proper commit tag.
+docker build -t "${FULL_COMMIT_TAG}" "${GIT_WORK_TREE}"
+
+# Get the Docker ID of the last built image.
+DOCKER_ID="$(docker images -q $REPO_NAME | head -1)"
+
+# Tag a latest version based off the proper commit tag.
+docker tag -f "${DOCKER_ID}" "${FULL_LATEST_TAG}"
+
+# Stop the docker container (systemd will restart it automatically).
+docker stop "${REPO_NAME}"

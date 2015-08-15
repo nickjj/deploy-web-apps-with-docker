@@ -1,0 +1,25 @@
+redis:
+  image: redis:2.8.21
+  ports:
+    - 6379:6379
+  volumes:
+    - ~/.docker-volumes/rediscounter/redis/data:/var/lib/redis/data
+
+website:
+  build: .
+  links:
+    - redis
+  volumes:
+    - .:/rediscounter
+  ports:
+    - 8000:8000
+
+cadvisor:
+  image: google/cadvisor:latest
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+  ports:
+  - 8080:8080

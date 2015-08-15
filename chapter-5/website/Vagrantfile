@@ -1,0 +1,62 @@
+Vagrant.require_version '>= 1.6.0'
+
+# Configuration settings for the Virtual Machine.
+$update_channel = 'beta'
+$image_version = 'current'
+$vm_memory = 1024
+$vm_cpus = 1
+$forwarded_ports = {
+  '8000' => '8000'
+}
+$vm_host = 'core-01'
+$vm_ip = '172.17.8.101'
+
+Vagrant.configure('2') do |config|
+  config.ssh.insert_key = false
+  config.ssh.forward_agent = true
+
+  config.vm.box = 'coreos-%s' % [$update_channel]
+  if $image_version != 'current'
+      config.vm.box_version = $image_version
+  end
+  config.vm.box_url = 'http://%s.release.core-os.net/amd64-usr/%s/coreos_production_vagrant.json' % [$update_channel, $image_version]
+
+  ['vmware_fusion', 'vmware_workstation'].each do |vmware|
+    config.vm.provider vmware do |v, override|
+      override.vm.box_url = 'http://%s.release.core-os.net/amd64-usr/%s/coreos_production_vagrant_vmware_fusion.json' % [$update_channel, $image_version]
+    end
+  end
+
+  config.vm.provider :virtualbox do |v|
+    v.check_guest_additions = false
+    v.functional_vboxsf     = false
+  end
+
+  if Vagrant.has_plugin?('vagrant-vbguest') then
+    config.vbguest.auto_update = false
+  end
+
+  config.vm.define vm_name = $vm_host do |config|
+    config.vm.hostname = vm_name
+
+    config.vm.network :private_network, ip: $vm_ip
+
+    $forwarded_ports.each do |guest, host|
+      config.vm.network 'forwarded_port', guest: guest, host: host, auto_correct: true
+    end
+
+    ['vmware_fusion', 'vmware_workstation'].each do |vmware|
+      config.vm.provider vmware do |v|
+        v.gui = false
+        v.vmx['memsize'] = $vm_memory
+        v.vmx['numvcpus'] = $vm_cpus
+      end
+    end
+
+    config.vm.provider :virtualbox do |vb|
+      vb.gui = false
+      vb.memory = $vm_memory
+      vb.cpus = $vm_cpus
+    end
+  end
+end

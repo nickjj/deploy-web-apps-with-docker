@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# OS and editor files
+.DS_Store
+*/**.DS_Store
+._*
+.*.sw*
+*~
+.idea/
+.mr.developer.cfg
+.project
+.pydevproject
+*.tmproj
+*.tmproject
+tmtags

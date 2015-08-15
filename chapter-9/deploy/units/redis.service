@@ -1,0 +1,16 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/mkdir -p /var/lib/%p/data
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p \
+  -v /var/lib/%p/data:/var/lib/%p/data -p 6379:6379 %p:2.8.21
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target rediscounter.service
