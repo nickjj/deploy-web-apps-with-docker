@@ -1,7 +1,7 @@
 [Unit]
 Description=Run %p
-Requires=docker.service redis.service nginx.service
-After=docker.service redis.service nginx.service 
+Requires=docker.service redis.service
+After=docker.service redis.service
 
 [Service]
 Restart=always
