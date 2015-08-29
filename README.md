@@ -9,6 +9,6 @@ MIT
 ## Buy the Book
 
 <iframe width="160" height="400" src="https://leanpub.com/deploy-web-apps-with-docker/embed" frameborder="0" allowtransparency="true"></iframe>
-[![Ansible for DevOps Cover](https://s3.amazonaws.com/titlepages.leanpub.com/deploy-web-apps-with-docker/medium)](https://leanpub.com/deploy-web-apps-with-docker)
+[![Deploy web apps with Docker](https://s3.amazonaws.com/titlepages.leanpub.com/deploy-web-apps-with-docker/medium)](https://leanpub.com/deploy-web-apps-with-docker)
 
 You can buy [Deploy web apps with Docker](https://leanpub.com/deploy-web-apps-with-docker) on LeanPub.
