@@ -1,7 +1,7 @@
 [Unit]
 Description=Run %p
-Requires=docker.service
-After=docker.service
+Requires=docker.service rediscounter.service
+After=docker.service rediscounter.service
 
 [Service]
 Restart=always
