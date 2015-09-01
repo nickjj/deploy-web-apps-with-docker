@@ -20,8 +20,11 @@ DOCKER_ID="$(docker images -q $REPO_NAME | head -1)"
 # Tag a latest version based off the proper commit tag.
 docker tag -f "${DOCKER_ID}" "${FULL_LATEST_TAG}"
 
-# Stop the docker container (systemd will restart it automatically).
+echo "Restarting ${REPO_NAME}"
 docker stop "${REPO_NAME}"
 
-# Ensure nginx gets restarted to pickup the backend change.
+echo "Removing untagged Docker images (may take a while)"
+docker rmi $(docker images --quiet --filter "dangling=true")
+
+echo "Restarting nginx"
 docker stop "nginx"
