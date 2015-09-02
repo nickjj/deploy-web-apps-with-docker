@@ -1,31 +1,17 @@
 *filter
 
-#  Allow all loopback (lo0) traffic and drop all traffic to 127/8 that doesn't use lo0.
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
 -A INPUT -i lo -j ACCEPT
--A INPUT ! -i lo -d 127.0.0.0/8 -j REJECT
-
-#  Accept all established inbound connections.
--A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-
-#  Allow all outbound traffic.
-#  You can modify this to only allow certain traffic
--A OUTPUT -j ACCEPT
-
-# Allow HTTP and HTTPS connections from anywhere.
--A INPUT -p tcp --dport 80 -j ACCEPT
--A INPUT -p tcp --dport 443 -j ACCEPT
-
-# Allow connections to Redis - uncomment this to allow it.
-# -A INPUT -p tcp --dport 6379 -j ACCEPT
-
-# Allow SSH.
--A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
-
-# Allow ping.
--A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
-
-# Reject all other inbound - default deny unless explicitly allowed policy.
--A INPUT -j REJECT
--A FORWARD -j REJECT
+-A INPUT -i eth1 -j ACCEPT
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 0 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT
 
 COMMIT
