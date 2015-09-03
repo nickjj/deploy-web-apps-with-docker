@@ -9,6 +9,7 @@ ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run -t --rm --name %p \
   --link redis:redis -p 8000:8000 %p
+ExecStartPost=-/usr/bin/docker stop nginx
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
