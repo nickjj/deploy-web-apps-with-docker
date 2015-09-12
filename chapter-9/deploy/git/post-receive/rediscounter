@@ -25,3 +25,6 @@ docker stop "${REPO_NAME}"
 
 echo "Removing untagged Docker images (may take a while)"
 docker rmi $(docker images --quiet --filter "dangling=true")
+
+echo "Restarting nginx"
+docker stop "nginx"
