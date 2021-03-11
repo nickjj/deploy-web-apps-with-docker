@@ -1,6 +1,9 @@
 # Deploy web apps with Docker
 
-This repository contains progress points based on where you are in [Deploy web apps with Docker](https://leanpub.com/deploy-web-apps-with-docker), a book for deploying web applications with Docker by [Nick Janetakis](http://nickjanetakis.com/).
+This repository contains progress points based on where you are in [Deploy web
+apps with Docker](https://leanpub.com/deploy-web-apps-with-docker), a book for
+deploying web applications with Docker by [Nick
+Janetakis](http://nickjanetakis.com/).
 
 ## License
 
@@ -8,7 +11,10 @@ MIT
 
 ## Buy the Book
 
-<iframe width="160" height="400" src="https://leanpub.com/deploy-web-apps-with-docker/embed" frameborder="0" allowtransparency="true"></iframe>
-[![Deploy web apps with Docker](https://s3.amazonaws.com/titlepages.leanpub.com/deploy-web-apps-with-docker/medium)](https://leanpub.com/deploy-web-apps-with-docker)
+You can buy [Deploy web apps with
+Docker](https://leanpub.com/deploy-web-apps-with-docker) on LeanPub.
 
-You can buy [Deploy web apps with Docker](https://leanpub.com/deploy-web-apps-with-docker) on LeanPub.
+Just as a fair warning I maintained this book for years but it's no longer
+being updated. This repo is up to ensure folks who have the book can access the
+material. An up to date list of courses I've created around building and
+deploying web apps can be found here <https://nickjanetakis.com/courses/>.
